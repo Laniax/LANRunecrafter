@@ -24,6 +24,7 @@ import org.tribot.script.interfaces.MouseActions;
 import org.tribot.script.interfaces.MousePainting;
 import org.tribot.script.interfaces.Painting;
 
+import scripts.LanAPI.Antiban;
 import scripts.LanAPI.Condition;
 import scripts.LanAPI.Inventory;
 import scripts.LanAPI.Movement;
@@ -169,12 +170,14 @@ public class LANRunecrafter extends Script implements Painting, EventBlockingOve
 					// found a tiara in the bank!
 					Banking.withdrawItem(tiaraOrTalisman[0], 1);
 					Timing.waitCondition(UntilHasTiaraInInventory, General.random(3000, 4000));
+					General.sleep(Antiban.getUtil().DELAY_TRACKER.ITEM_INTERACTION.next());
 					Banking.close();
 				// Check for talisman
 				} else if ((tiaraOrTalisman = Banking.find(getAltar().getTalismanID())).length > 0) {
 					// found a talisman in the bank!
 					Banking.withdrawItem(tiaraOrTalisman[0], 1);
 					Timing.waitCondition(UntilHasTalismanInInventory, General.random(3000, 4000));
+					General.sleep(Antiban.getUtil().DELAY_TRACKER.ITEM_INTERACTION.next());
 					Banking.close();
 				} else {
 					// couldn't find a talisman or tiara in the bank or inventory, stopping script.
@@ -189,6 +192,8 @@ public class LANRunecrafter extends Script implements Painting, EventBlockingOve
 	public static void goToAltar() {
 
 		Paint.statusText = "Going to altar";
+		
+		Antiban.doIdleActions();
 
 		Movement.walkTo(getAltar().getAltarLocation());
 	}
@@ -218,10 +223,12 @@ public class LANRunecrafter extends Script implements Painting, EventBlockingOve
 					
 					String uptext = Game.getUptext();
 					
-					if (uptext == null || !uptext.equalsIgnoreCase("Use "+altar.getRuneName()+" talisman ->"))
+					if (uptext == null || !uptext.equalsIgnoreCase("Use "+altar.getRuneName()+" talisman ->")) {
 						talisman[0].click();
-					else
+						General.sleep(Antiban.getUtil().DELAY_TRACKER.ITEM_INTERACTION.next());
+					} else {
 						ObjectsHelper.interact("Mysterious ruins", "Use");
+					}
 				} 
 			}
 		} else 
@@ -259,6 +266,8 @@ public class LANRunecrafter extends Script implements Painting, EventBlockingOve
 		if (newEssence > 0) {
 			PaintHelper.trips++;
 			PaintHelper.runesCrafted += newEssence;
+			
+			Antiban.doIdleActions();
 		}
 	}
 
@@ -293,6 +302,8 @@ public class LANRunecrafter extends Script implements Painting, EventBlockingOve
 				final int preWithdraw = Inventory.getCount(essence);
 
 				Banking.withdraw(0, essence);
+				
+				General.sleep(Antiban.getUtil().DELAY_TRACKER.ITEM_INTERACTION.next());
 
 				Timing.waitCondition(new Condition() {
 					public boolean active() {
@@ -316,6 +327,8 @@ public class LANRunecrafter extends Script implements Painting, EventBlockingOve
 			return;
 
 		Paint.statusText = "Going to bank";
+		
+		Antiban.doIdleActions();
 
 		Movement.walkTo(getAltar().getBankArea().getRandomTile());
 	}
