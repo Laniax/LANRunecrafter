@@ -51,6 +51,7 @@ public class LANRunecrafter extends Script implements Painting, EventBlockingOve
 		new EarthAltar(),
 		new FireAltar(),
 		new WaterAltar(),
+		new BodyAltar(),
 	};
 
 	public static AbstractAltar getAltar() {
