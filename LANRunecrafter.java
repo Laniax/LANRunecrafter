@@ -15,7 +15,6 @@ import org.tribot.api2007.Game;
 import org.tribot.api2007.Login;
 import org.tribot.api2007.Player;
 import org.tribot.api2007.Skills.SKILLS;
-import org.tribot.api2007.ext.Filters;
 import org.tribot.api2007.types.RSItem;
 import org.tribot.script.Script;
 import org.tribot.script.ScriptManifest;
@@ -43,6 +42,8 @@ public class LANRunecrafter extends Script implements Painting, EventBlockingOve
 	public static boolean waitForGUI = true;
 
 	protected static AbstractAltar altar;
+	
+	private static int failEssenceWithdraw = 0;
 
 	private static GUI gui;
 
@@ -297,25 +298,32 @@ public class LANRunecrafter extends Script implements Painting, EventBlockingOve
 			}
 
 			String essence = getAltar().requirePureEssence() ? "Pure essence" : "Rune essence";
+			
+			final int preWithdraw = Inventory.getCount(essence);
 
-			if (Banking.find(Filters.Items.nameContains(essence)).length > 0) {
-
-				final int preWithdraw = Inventory.getCount(essence);
-
-				Banking.withdraw(0, essence);
+			if (Banking.withdraw(0, essence)) {
+				
+				failEssenceWithdraw = 0;
 				
 				General.sleep(Antiban.getUtil().DELAY_TRACKER.ITEM_INTERACTION.next());
-
+				
 				Timing.waitCondition(new Condition() {
 					public boolean active() {
 						General.sleep(50);
 						return Inventory.getCount(essence) != preWithdraw;
 					}}, General.random(3000, 4000));
+				
 			} else {
-				General.println("Out of "+essence+"! Stopping script and logging out.");
-				Login.logout();
-				quitting = true;
-				return;
+				failEssenceWithdraw++;
+				
+				General.println("Failed to withdraw essence! Trying " +  (3 - failEssenceWithdraw) +" more times before quitting.");
+				
+				if (failEssenceWithdraw > 2) {
+					General.println("Out of "+essence+"! Stopping script and logging out.");
+					Login.logout();
+					quitting = true;
+					return;
+				}
 			}
 
 			Banking.close();
