@@ -1,4 +1,8 @@
-package scripts.LANRunecrafter;
+package scripts.LANRunecrafter.UI;
+
+import scripts.LANRunecrafter.Altars.AbstractAltar;
+import scripts.LANRunecrafter.LANRunecrafter;
+import scripts.LanAPI.Game.Persistance.Variables;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -6,19 +10,13 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class GUI extends JFrame {
@@ -45,29 +43,23 @@ public class GUI extends JFrame {
 		altarCombobox.setBounds(130, 70, 100, 27);
 		getContentPane().add(altarCombobox);
 
+		chkPureEss.setOpaque(false);
+		chkPureEss.setBounds(45, 108, 252, 61);
+		getContentPane().add(chkPureEss);
+
 		btnSave.setText("");
 		btnSave.setOpaque(false);
 		btnSave.setBorderPainted(false);
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				btnSaveSettingsClicked(evt);
-			}
-		});
-		getContentPane().add(btnSave);
+		btnSave.addActionListener(evt -> btnSaveSettingsClicked(evt));
 		btnSave.setBounds(25, 205, 252, 61);
+		getContentPane().add(btnSave);
 
 		btnClose.setText("");
 		btnClose.setOpaque(false);
 		btnClose.setBorderPainted(false);
-
-		GUI self = this;
-		btnClose.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				self.dispose();
-			}
-		});
-		getContentPane().add(btnClose);
+		btnClose.addActionListener(evt -> dispose());
 		btnClose.setBounds(222, 17, 71, 44);
+		getContentPane().add(btnClose);
 		
 		try {
 			ImageIcon save = new ImageIcon(new URL("https://dl.dropboxusercontent.com/u/21676524/RS/Runecrafter/save.png"));
@@ -122,16 +114,16 @@ public class GUI extends JFrame {
 	}
 
 	protected void btnSaveSettingsClicked(ActionEvent evt) {
-		LANRunecrafter.altar = (AbstractAltar) altarCombobox.getSelectedItem();
+
+		Variables.getInstance().addOrUpdate("altar", altarCombobox.getSelectedItem());
+		Variables.getInstance().addOrUpdate("pureEssenceFallback", chkPureEss.isSelected());
 
 		this.setVisible(false);
-
-		LANRunecrafter.waitForGUI = false;
 	}
 
 	private JButton btnSave = new JButton();
 	private JButton btnClose = new JButton();
-
+	private JCheckBox chkPureEss = new JCheckBox();
 	private JLabel backgroundLabel = new JLabel();
 	private JComboBox<AbstractAltar> altarCombobox = new JComboBox<AbstractAltar>();
 }

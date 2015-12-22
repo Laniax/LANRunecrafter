@@ -1,4 +1,4 @@
-package scripts.LANRunecrafter;
+package scripts.LANRunecrafter.Altars;
 
 import org.tribot.api2007.types.RSArea;
 import org.tribot.api2007.types.RSTile;
@@ -6,11 +6,11 @@ import org.tribot.api2007.types.RSTile;
 /**
  * @author Laniax
  */
-public class EarthAltar extends AbstractAltar{
+public class BodyAltar extends AbstractAltar{
 	
-	private final RSArea bankArea = new RSArea(new RSTile(3250, 3422, 0), new RSTile(3254, 3420, 0));
-	private final RSArea altarArea = new RSArea(new RSTile(2637, 4860, 0), new RSTile(2690, 4810, 0));
-	private final RSTile altarLocation = new RSTile(3305, 3473, 0);
+	private final RSArea bankArea = new RSArea(new RSTile(3091, 3494, 0), new RSTile(3094, 3488, 0));
+	private final RSArea altarArea = new RSArea(new RSTile(2508, 4849, 0), new RSTile(2538, 4820, 0));
+	private final RSTile altarLocation = new RSTile(3052, 3444, 0);
 
 	@Override
 	public RSTile getAltarLocation() {
@@ -19,22 +19,22 @@ public class EarthAltar extends AbstractAltar{
 
 	@Override
 	public RSArea getBankArea() {
-		return bankArea; // varrock west
+		return bankArea; // edgeville
 	}
 
 	@Override
 	public String getRuneName() {
-		return "Earth";
+		return "Body";
 	}
 
 	@Override
 	public int getTiaraID() {
-		return 5535;
+		return 5533;
 	}
 
 	@Override
 	public int getTalismanID() {
-		return 1440;
+		return 1446;
 	}
 
 	@Override

@@ -1,12 +1,13 @@
-package scripts.LANRunecrafter;
+package scripts.LANRunecrafter.Altars;
 
 import org.tribot.api2007.types.RSArea;
 import org.tribot.api2007.types.RSTile;
+import scripts.LANRunecrafter.Altars.AbstractAltar;
 
 /**
  * @author Laniax
  */
-public class WaterAltar extends AbstractAltar{
+public class WaterAltar extends AbstractAltar {
 	
 	private final RSArea bankArea = new RSArea(new RSTile(3092, 3245, 0), new RSTile(3095, 3241, 0));
 	private final RSArea altarArea = new RSArea(new RSTile(2702, 4850, 0), new RSTile(2726, 4820, 0));

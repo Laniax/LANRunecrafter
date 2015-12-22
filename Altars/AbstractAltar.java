@@ -1,4 +1,4 @@
-package scripts.LANRunecrafter;
+package scripts.LANRunecrafter.Altars;
 
 import org.tribot.api2007.types.RSArea;
 import org.tribot.api2007.types.RSTile;
