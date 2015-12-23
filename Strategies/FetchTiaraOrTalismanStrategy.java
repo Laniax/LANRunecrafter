@@ -72,20 +72,22 @@ public class FetchTiaraOrTalismanStrategy implements IStrategy {
             RSItem[] tiaraOrTalisman;
             if ((tiaraOrTalisman = Banking.find(altar.getTiaraID())).length > 0) {
                 // found a tiara in the bank!
-                Banking.withdrawItem(tiaraOrTalisman[0], 1);
-                Timing.waitCondition(Conditions.UntilHasTiaraInInventory(altar), General.random(3000, 4000));
-                General.sleep(Antiban.getUtil().DELAY_TRACKER.ITEM_INTERACTION.next());
+                if (Banking.withdrawItem(tiaraOrTalisman[0], 1)) {
+                    Timing.waitCondition(Conditions.UntilHasTiaraInInventory(altar), General.random(3000, 4000));
+                    General.sleep(Antiban.getUtil().DELAY_TRACKER.ITEM_INTERACTION.next());
+                }
                 Banking.close();
                 // Check for talisman
             } else if ((tiaraOrTalisman = Banking.find(altar.getTalismanID())).length > 0) {
                 // found a talisman in the bank!
-                Banking.withdrawItem(tiaraOrTalisman[0], 1);
-                Timing.waitCondition(Conditions.UntilHasTalismanInInventory(altar), General.random(3000, 4000));
-                General.sleep(Antiban.getUtil().DELAY_TRACKER.ITEM_INTERACTION.next());
+                if (Banking.withdrawItem(tiaraOrTalisman[0], 1)) {
+                    Timing.waitCondition(Conditions.UntilHasTalismanInInventory(altar), General.random(3000, 4000));
+                    General.sleep(Antiban.getUtil().DELAY_TRACKER.ITEM_INTERACTION.next());
+                }
                 Banking.close();
             } else {
                 // couldn't find a talisman or tiara in the bank or inventory, stopping script.
-                General.println("Couldn't find a talisman or tiara in your inventory or bank. Stopping script");
+                log.error("Couldn't find a talisman or tiara in your inventory or bank. Stopping script");
                 LANRunecrafter.quitting = true;
                 return;
             }
