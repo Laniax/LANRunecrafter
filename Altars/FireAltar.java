@@ -13,6 +13,11 @@ public class FireAltar extends AbstractAltar{
 	private final RSTile altarLocation = new RSTile(3312, 3254, 0);
 
 	@Override
+	public int index() {
+		return 3;
+	}
+
+	@Override
 	public RSTile getAltarLocation() {
 		return altarLocation;
 	}

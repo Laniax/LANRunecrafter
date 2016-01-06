@@ -3,7 +3,9 @@ package scripts.LANRunecrafter.Strategies;
 import org.tribot.api.General;
 import org.tribot.api.Timing;
 import org.tribot.api2007.Player;
+import org.tribot.api2007.Walking;
 import org.tribot.api2007.ext.Filters;
+import org.tribot.api2007.types.RSObject;
 import scripts.LANRunecrafter.Altars.AbstractAltar;
 import scripts.LanAPI.Core.Logging.LogProxy;
 import scripts.LanAPI.Game.Antiban.Antiban;
@@ -42,14 +44,15 @@ public class CraftRunesStrategy implements IStrategy {
 
         final int preEssence = Inventory.getCount(altar.getRuneName() + " rune");
 
-        ObjectsHelper.interact("Craft-rune");
+        if (ObjectsHelper.interact("Craft-rune")) {
 
-        Timing.waitCondition(new Condition() {
-            public boolean active() {
-                General.sleep(50);
-                return Inventory.find("essence").length != 0 && Player.getAnimation() == -1;
-            }
-        }, General.random(4000, 5000));
+            Timing.waitCondition(new Condition() {
+                public boolean active() {
+                    General.sleep(50);
+                    return Inventory.find("essence").length != 0 && Player.getAnimation() == -1;
+                }
+            }, General.random(5000, 6000));
+        }
 
         int newEssence =  Math.abs(Inventory.getCount(altar.getRuneName() + " rune") - preEssence);
 

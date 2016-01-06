@@ -14,6 +14,11 @@ public class WaterAltar extends AbstractAltar {
 	private final RSTile altarLocation = new RSTile(3184, 3164, 0);
 
 	@Override
+	public int index() {
+		return 4;
+	}
+
+	@Override
 	public RSTile getAltarLocation() {
 		return altarLocation;
 	}

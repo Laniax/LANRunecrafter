@@ -13,6 +13,11 @@ public class BodyAltar extends AbstractAltar{
 	private final RSTile altarLocation = new RSTile(3052, 3444, 0);
 
 	@Override
+	public int index() {
+		return 1;
+	}
+
+	@Override
 	public RSTile getAltarLocation() {
 		return altarLocation;
 	}

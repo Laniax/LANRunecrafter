@@ -13,6 +13,11 @@ public class AirAltar extends AbstractAltar{
 	private final RSTile altarLocation = new RSTile(2984, 3291, 0);
 
 	@Override
+	public int index() {
+		return 0;
+	}
+
+	@Override
 	public RSTile getAltarLocation() {
 		return altarLocation;
 	}

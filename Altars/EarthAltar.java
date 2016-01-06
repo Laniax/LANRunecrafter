@@ -13,6 +13,11 @@ public class EarthAltar extends AbstractAltar{
 	private final RSTile altarLocation = new RSTile(3305, 3473, 0);
 
 	@Override
+	public int index() {
+		return 2;
+	}
+
+	@Override
 	public RSTile getAltarLocation() {
 		return altarLocation;
 	}

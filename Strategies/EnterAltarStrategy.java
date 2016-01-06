@@ -48,8 +48,9 @@ public class EnterAltarStrategy implements IStrategy {
                     String uptext = Game.getUptext();
 
                     if (uptext == null || !uptext.equalsIgnoreCase("Use "+altar.getRuneName()+" talisman ->")) {
-                        talisman[0].click();
-                        General.sleep(Antiban.getUtil().DELAY_TRACKER.ITEM_INTERACTION.next());
+                        if (talisman[0].click()) {
+                            General.sleep(Antiban.getUtil().DELAY_TRACKER.ITEM_INTERACTION.next());
+                        }
                     } else {
                         ObjectsHelper.interact("Mysterious ruins", "Use");
                     }

@@ -7,6 +7,8 @@ import org.tribot.api2007.types.RSTile;
  * @author: Laniax
  */
 public abstract class AbstractAltar {
+
+	public abstract int index();
 	
 	public abstract RSTile getAltarLocation();
 	

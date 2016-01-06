@@ -62,17 +62,17 @@ public class GUI extends JFrame {
 		getContentPane().add(btnClose);
 		
 		try {
-			ImageIcon save = new ImageIcon(new URL("https://dl.dropboxusercontent.com/u/21676524/RS/Runecrafter/save.png"));
-			ImageIcon saveHover = new ImageIcon(new URL("https://dl.dropboxusercontent.com/u/21676524/RS/Runecrafter/save-hover.png"));
-			ImageIcon close = new ImageIcon(new URL("https://dl.dropboxusercontent.com/u/21676524/RS/Runecrafter/close.png"));
-			ImageIcon closeHover = new ImageIcon(new URL("https://dl.dropboxusercontent.com/u/21676524/RS/Runecrafter/close-hover.png"));
+			ImageIcon save = new ImageIcon(new URL("http://laniax.eu/paint/runecrafter/save.png"));
+			ImageIcon saveHover = new ImageIcon(new URL("http://laniax.eu/paint/runecrafter/save-hover.png"));
+			ImageIcon close = new ImageIcon(new URL("http://laniax.eu/paint/runecrafter/close.png"));
+			ImageIcon closeHover = new ImageIcon(new URL("http://laniax.eu/paint/runecrafter/close-hover.png"));
 			
 			btnSave.setIcon(save);
 			btnSave.setRolloverIcon(saveHover);
 			btnClose.setIcon(close);
 			btnClose.setRolloverIcon(closeHover);
 
-			backgroundLabel.setIcon(new ImageIcon(new URL("https://dl.dropboxusercontent.com/u/21676524/RS/Runecrafter/runecrafter_settings.png")));
+			backgroundLabel.setIcon(new ImageIcon(new URL("http://laniax.eu/paint/runecrafter/settings.png")));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}

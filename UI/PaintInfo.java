@@ -20,13 +20,6 @@ import java.util.Map;
  */
 public class PaintInfo extends AbstractPaintInfo {
 
-    final Image _bg = PaintHelper.getImage("https://dl.dropboxusercontent.com/u/21676524/RS/Runecrafter/paint.png");
-    final Image _toggle = PaintHelper.getImage("https://dl.dropboxusercontent.com/u/21676524/RS/ChaosKiller/Script/scriptPaintToggle.png");
-
-    final Font fontMed = PaintHelper.getFont("https://dl.dropboxusercontent.com/u/21676524/RS/ChaosKiller/Script/SF%20Electrotome.ttf", 22f);
-    final Font fontSmall = fontMed.deriveFont(18f);
-    final Font fontLarge = fontMed.deriveFont(33f);
-
     private final int[][] skillXPLocations = new int[][] {
             {60, 433},
             {60, 458},
@@ -37,12 +30,30 @@ public class PaintInfo extends AbstractPaintInfo {
             {240, 483},
     };
 
+    final Image _bg, _toggle;
+    final Font fontSmall, fontMed, fontLarge;
+
     final Point runtimePos = new Point(115, 406);
     final Point statusPos = new Point(141, 372);
     final Point modePos = new Point(240, 406);
     final Point craftedPos = new Point(skillXPLocations[1][0], skillXPLocations[1][1]);
     final Point tripsPos = new Point(skillXPLocations[3][0], skillXPLocations[3][1]);
     final Point tripsHourPos = new Point(skillXPLocations[4][0], skillXPLocations[4][1]);
+
+    public PaintInfo() {
+
+        _bg = PaintHelper.getImage("http://laniax.eu/paint/runecrafter/bg.png");
+        _toggle = PaintHelper.getImage("http://laniax.eu/paint/runecrafter/toggle.png");
+        fontMed = PaintHelper.getFont("http://laniax.eu/paint/runecrafter/font.ttf", 22f);
+
+        if (fontMed != null) {
+            fontSmall = fontMed.deriveFont(18f);
+            fontLarge = fontMed.deriveFont(33f);
+        } else {
+            fontSmall = null;
+            fontLarge = null;
+        }
+    }
 
     @Override
     public Image getBackground() {
@@ -55,7 +66,7 @@ public class PaintInfo extends AbstractPaintInfo {
     }
 
     @Override
-    public List<PaintString> getText(long runTime) {
+    public List<PaintString> getText(long runTime, Graphics2D g) {
 
         List<PaintString> result = new ArrayList<>();
 
@@ -74,8 +85,7 @@ public class PaintInfo extends AbstractPaintInfo {
         result.add(new PaintString(String.format("Ran %d trips", trips), tripsPos, fontSmall, Color.WHITE, true));
 
         String averageTripTime = trips == 0 ? "-" : Timing.msToString(runTime / trips) ;
-        result.add(new PaintString(averageTripTime, tripsHourPos, fontSmall, Color.WHITE, true));
-
+        result.add(new PaintString(String.format("Average trip time is %s", averageTripTime), tripsHourPos, fontSmall, Color.WHITE, true));
 
         int i = 0;
         for (Map.Entry<Skills.SKILLS, Integer> s : SkillsHelper.getStartSkills().entrySet()) {
